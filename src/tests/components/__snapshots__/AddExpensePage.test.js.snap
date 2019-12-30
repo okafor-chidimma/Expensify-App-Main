@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the <AddExpensePage/> should render <AddExpensePage/> correctly with right props 1`] = `
+<div>
+  <h1>
+    Add Expense Page
+  </h1>
+  <ExpenseForm
+    buttonState="create"
+    onSubmit={[Function]}
+  />
+</div>
+`;

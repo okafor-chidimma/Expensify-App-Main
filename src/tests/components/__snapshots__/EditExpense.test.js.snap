@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the <EditExpensePage/> should render <EditExpensePage/> correctly with right props 1`] = `
+<div>
+  Editing the expense of 
+  1
+  <ExpenseForm
+    buttonState="edit"
+    expense={
+      Object {
+        "amount": 54500,
+        "createdAt": 0,
+        "description": "January rent",
+        "id": "1",
+        "note": "Last rent before moving",
+      }
+    }
+    onSubmit={[Function]}
+  />
+  <button
+    onClick={[Function]}
+  >
+    Remove Item
+  </button>
+</div>
+`;

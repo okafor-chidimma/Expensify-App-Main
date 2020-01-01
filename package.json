@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "live-server public",
-    "start": "node ./server/sever.js",
+    "start": "node server/sever.js",
     "start:dev": "webpack-dev-server --env development",
     "build-babel-watch": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
     "build-webpack-watch": "webpack --watch",

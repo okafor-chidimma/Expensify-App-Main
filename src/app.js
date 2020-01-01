@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ApiRoutes from './routers/ApiRoutes';
 import store from './store/configureStore';
-import storeActions from './store/actionStore';
 import 'normalize.css/normalize.css';
 import './styles/style.scss';
 import 'react-dates/lib/css/_datepicker.css';
 
-storeActions();
+console.log('test');
+
 const template = (
   <Provider store={store}>
     <ApiRoutes />

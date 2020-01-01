@@ -11,11 +11,11 @@ exports[`Rendering <ExpenseListItem/> Render the <ExpenseListItem/> with expense
   </Link>
   <p>
     Amount Spent: 
-    54500
+    #545.00
   </p>
   <p>
     Created At: 
-    0
+    January 1st, 1970
   </p>
 </div>
 `;

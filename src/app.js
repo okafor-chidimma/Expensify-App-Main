@@ -7,7 +7,6 @@ import 'normalize.css/normalize.css';
 import './styles/style.scss';
 import 'react-dates/lib/css/_datepicker.css';
 
-console.log('test');
 
 const template = (
   <Provider store={store}>

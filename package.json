@@ -16,7 +16,7 @@
     "heroku-postbuild": "yarn run build:prod",
     "test:configure": "jest",
     "test": "jest --config=jest.config.json",
-    "test:configure:watch": "jest --config=jest.config.json --watchAll",
+    "test:configure:watch": "cross-env NODE_ENV=test jest --config=jest.config.json --watchAll",
     "test:watch-mode": "jest --watchAll"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "css-loader": "^3.2.0",
     "express": "^4.17.1",
+    "firebase": "^7.6.1",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
@@ -41,12 +42,15 @@
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "uuid": "^3.3.3",
     "webpack": "^4.41.0"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
@@ -54,6 +58,7 @@
     "live-server": "^1.2.1",
     "mini-css-extract-plugin": "^0.9.0",
     "react-test-renderer": "^16.12.0",
+    "redux-mock-store": "^1.5.4",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
   }

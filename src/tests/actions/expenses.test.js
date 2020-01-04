@@ -6,6 +6,7 @@ import {
   addExpense,
   editExpense,
   removeExpense,
+  startRemoveExpense,
   setExpense,
   startSetExpense
 } from '../../actions/expenses';
@@ -42,6 +43,27 @@ describe('the Expense Action Generators', () => {
       type: 'REMOVE_EXPENSE',
       id: '123abc'
     });
+  });
+  test('should remove expense from database and store', done => {
+    const initialState = {};
+    const store = mockStore(initialState);
+    store
+      .dispatch(startRemoveExpense(expenses[0].id))
+      .then(() => {
+        const actions = store.getActions();
+        console.log(actions, 'hi default actions');
+        expect(actions[0]).toEqual({
+          type: 'REMOVE_EXPENSE',
+          id: expenses[0].id
+        });
+        return database.ref(`expenses/${expenses[0].id}`).once('value');
+      })
+      .then(snapshot => {
+        console.log(snapshot.val(), 'i am snap shot');
+
+        expect(snapshot.val()).toBeFalsy();
+        done();
+      });
   });
   test('should generate an edit expense action', () => {
     const action = editExpense({ id: '123abc' }, { note: 'i am test note' });

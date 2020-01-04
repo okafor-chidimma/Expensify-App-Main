@@ -3,15 +3,23 @@ import { shallow } from 'enzyme';
 import { EditExpensePage } from '../../components/EditExpensePage';
 import expenses from '../fixtures/expenses';
 
-let editExpense, removeExpense, history, wrapper, match;
+let editExpense, startRemoveExpense, history, wrapper, match;
 describe('should render the <EditExpensePage/>', () => {
   // declare the functions the component is expecting as props
   beforeEach(() => {
     editExpense = jest.fn();
-    removeExpense = jest.fn();
+    startRemoveExpense = jest.fn();
     history = { push: jest.fn() };
     match = { params: { id: expenses[0].id } }
-    wrapper = shallow(<EditExpensePage history={history} editExpense={editExpense} removeExpense={removeExpense} expense={expenses[0]} match={match} />);
+    wrapper = shallow(
+      <EditExpensePage
+        history={history}
+        editExpense={editExpense}
+        startRemoveExpense={startRemoveExpense}
+        expense={expenses[0]}
+        match={match}
+      />
+    );
 
   });
   it('should render <EditExpensePage/> correctly with right props', () => {
@@ -29,6 +37,6 @@ describe('should render the <EditExpensePage/>', () => {
   it('should handle removeExpense', () => {
     wrapper.find('button').simulate('click');
     expect(history.push).toHaveBeenLastCalledWith('/')
-    expect(removeExpense).toHaveBeenLastCalledWith(expenses[0].id);
+    expect(startRemoveExpense).toHaveBeenLastCalledWith(expenses[0].id);
   })
 })

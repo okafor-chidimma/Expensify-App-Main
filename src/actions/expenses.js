@@ -43,6 +43,21 @@ export const removeExpense = ({ id }) => {
   };
 };
 
+export const startRemoveExpense = id => {
+  return dispatch => {
+    return database
+      .ref(`expenses/${id}`)
+      .remove()
+      .then(() => {
+        console.log('data removed successfully');
+        dispatch(removeExpense({ id }));
+      })
+      .catch(error => {
+        console.log('Problem deleting', error);
+      });
+  };
+};
+
 // Edit Expense
 
 export const editExpense = ({ id }, updatedExpense) => {

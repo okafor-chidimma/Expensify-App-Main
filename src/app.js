@@ -17,7 +17,12 @@ const template = (
 const appRoot = document.getElementById('app');
 ReactDOM.render(<p>Loading...</p>, appRoot);
 
-store.dispatch(startSetExpense()).then(() => {
-  ReactDOM.render(template, appRoot);
-});
-
+store
+  .dispatch(startSetExpense())
+  .then(() => {
+    ReactDOM.render(template, appRoot);
+  })
+  .catch(error => {
+    console.log(error, 'error loading expenses');
+    ReactDOM.render(<p>There was an error loading expenses</p>, appRoot);
+  });

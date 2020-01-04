@@ -4,8 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 /*
   using npm dotenv, takes all the variables in your .env file and adds them to the process.env object, so these env variables become available all through that file where the dotenv is required
 
-
-  usually, node environment variables don't get passed to the client side js automatically because it is not safe practice, so to make node environment variables available in webpack via the usage of dotenv, to be available to the client side i.e everything inside of src folder which gets bundled to bundle.js, we have to manually pass them via the DefinePlugins() in webpack
+  browser does not have access to the process.env object which means that node environment variables don't get passed to the client side js automatically because it is not safe practice, so to make node environment variables available in webpack via the usage of dotenv, to be available to the client side i.e everything inside of src folder which gets bundled to bundle.js, we have to manually pass them via the DefinePlugins() in webpack
 */
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 if (process.env.NODE_ENV === 'development') {

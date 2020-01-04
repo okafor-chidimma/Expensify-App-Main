@@ -5,7 +5,9 @@ import {
   startAddExpense,
   addExpense,
   editExpense,
-  removeExpense
+  removeExpense,
+  setExpense,
+  startSetExpense
 } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
@@ -18,7 +20,22 @@ const middlewares = [thunk]; // add your middlewares like `redux-thunk`
 // configureStore returns a function
 const mockStore = configureStore(middlewares);
 //Anytime i call mockstore function, it returns an instance of the configured mock store
+
+// using the done arg, when done is as an arg to a test suite, the test suite waits for the done() to be called before it can complete its running, if the done() is never called the test fails
 describe('the Expense Action Generators', () => {
+  beforeEach(done => {
+    const expenseData = {};
+    expenses.forEach(({ id, description, note, createdAt, amount }) => {
+      expenseData[id] = { description, note, createdAt, amount };
+    });
+    database
+      .ref('expenses')
+      .set(expenseData)
+      .then(() => {
+        // the done is called after the promise resolves and if the promise fails the test fails
+        done();
+      });
+  });
   test('should generate a remove expense action', () => {
     const action = removeExpense({ id: '123abc' });
     expect(action).toEqual({
@@ -87,7 +104,12 @@ describe('the Expense Action Generators', () => {
   test('should add default expense to the database and store', done => {
     const initialState = {};
     const store = mockStore(initialState);
-    const expenseDefault = { amount: 0, createdAt: 0, note: '', description: '' };
+    const expenseDefault = {
+      amount: 0,
+      createdAt: 0,
+      note: '',
+      description: ''
+    };
     store
       .dispatch(startAddExpense({}))
       .then(() => {
@@ -106,5 +128,26 @@ describe('the Expense Action Generators', () => {
         expect(snapshot.val()).toEqual(expenseDefault);
         done();
       });
+  });
+
+  test('should set the setExpense action generator with the right values', () => {
+    const action = setExpense(expenses);
+    expect(action).toEqual({
+      type: 'SET_EXPENSE',
+      expenses
+    });
+  });
+  test('should fetch data from db and dispatch setExpenses', done => {
+    const initialState = {};
+    const store = mockStore(initialState);
+    store.dispatch(startSetExpense()).then(() => {
+      const actions = store.getActions();
+      console.log(actions, 'hi default actions');
+      expect(actions[0]).toEqual({
+        type: 'SET_EXPENSE',
+        expenses
+      });
+      done();
+    });
   });
 });

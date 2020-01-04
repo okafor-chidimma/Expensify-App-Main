@@ -18,4 +18,19 @@
   7 then run this command 
       git push heroku master
 
+
+  8 To configure environment variables on heroku to be added to process.env object, run this command
+
+    heroku config:set API_KEY=1234564
+
+                                     //the spaces separating them is intentional
+    heroku config:set API_KEY=1234564 API_FRIEND=chidimma 
+
+  9 To unset these config variables, run this command
+
+    heroku config:unset API_KEY
+
+  10 To see a list of your config variables, we run
+
+    heroku config
 */

@@ -52,3 +52,34 @@ export const editExpense = ({ id }, updatedExpense) => {
     updatedExpense
   };
 };
+
+// To Set Expense That is already in the db
+
+// expenses here is an array
+export const setExpense = expenses => ({
+  type: 'SET_EXPENSE',
+  expenses
+});
+
+export const startSetExpense = () => {
+  // this return function is internally ran by redux and it gets called with dispatch as an arg
+  return dispatch => {
+    // to return a promise so we can use jest to test to make sure it does what it is meant to do
+    return database
+      .ref('expenses')
+      .once('value')
+      .then(snapshot => {
+        const expenses = [];
+        snapshot.forEach(childSnapshot => {
+          expenses.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val()
+          });
+        });
+        dispatch(setExpense(expenses));
+      })
+      .catch(error => {
+        console.log('could not read from db', error);
+      });
+  };
+};

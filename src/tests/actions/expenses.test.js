@@ -5,6 +5,7 @@ import {
   startAddExpense,
   addExpense,
   editExpense,
+  startEditExpense,
   removeExpense,
   startRemoveExpense,
   setExpense,
@@ -73,6 +74,31 @@ describe('the Expense Action Generators', () => {
       updatedExpense: { note: 'i am test note' }
     });
   });
+  test('should update expense in database and redux', (done) => {
+    const updatedExpense = {
+      note: 'I am updating you from test'
+    };
+    const initialState = {};
+    const store = mockStore(initialState);
+    store
+      .dispatch(startEditExpense(expenses[0].id, updatedExpense))
+      .then(() => {
+        const actions = store.getActions();
+        console.log(actions, 'hi default actions');
+        expect(actions[0]).toEqual({
+          type: 'EDIT_EXPENSE',
+          id: expenses[0].id,
+          updatedExpense
+        });
+        return database.ref(`expenses/${expenses[0].id}`).once('value');
+      })
+      .then(snapshot => {
+        console.log(snapshot.val(), 'i am snap shot');
+        expect(snapshot.val().note).toBe(updatedExpense.note);
+        done();
+      });
+  });
+  
   test('should generate an add expense action', () => {
     const action = addExpense(expenses[0]);
     expect(action).toEqual({
@@ -172,4 +198,5 @@ describe('the Expense Action Generators', () => {
       done();
     });
   });
+  
 });

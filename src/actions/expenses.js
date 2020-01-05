@@ -68,6 +68,21 @@ export const editExpense = ({ id }, updatedExpense) => {
   };
 };
 
+export const startEditExpense = (id, updatedExpense) => {
+  return dispatch => {
+    return database
+      .ref(`expenses/${id}`)
+      .update(updatedExpense)
+      .then(() => {
+        console.log('data updated successfully');
+        dispatch(editExpense({ id }, updatedExpense));
+      })
+      .catch(error => {
+        console.log('Problem updating', error);
+      });
+  };
+};
+
 // To Set Expense That is already in the db
 
 // expenses here is an array

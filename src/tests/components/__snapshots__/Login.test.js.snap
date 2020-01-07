@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`To test the Login component with enzyme package should render Login correctly 1`] = `
+<div>
+  <button
+    onClick={[MockFunction]}
+  >
+    Login Page
+  </button>
+</div>
+`;

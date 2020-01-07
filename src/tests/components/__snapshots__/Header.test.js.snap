@@ -7,10 +7,9 @@ exports[`To test the Header component with enzyme package should render Header c
   </h1>
   <NavLink
     activeClassName="is-active"
-    exact={true}
-    to="/"
+    to="/dashboard"
   >
-    Home
+    My Dashboard
   </NavLink>
   <NavLink
     activeClassName="is-active"
@@ -24,5 +23,10 @@ exports[`To test the Header component with enzyme package should render Header c
   >
     Help
   </NavLink>
+  <button
+    onClick={[MockFunction]}
+  >
+    LogOut
+  </button>
 </header>
 `;

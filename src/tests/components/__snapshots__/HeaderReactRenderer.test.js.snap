@@ -7,10 +7,9 @@ exports[`To test the Header component with react renderer package should render 
   </h1>
   <ForwardRef
     activeClassName="is-active"
-    exact={true}
-    to="/"
+    to="/dashboard"
   >
-    Home
+    My Dashboard
   </ForwardRef>
   <ForwardRef
     activeClassName="is-active"
@@ -24,5 +23,8 @@ exports[`To test the Header component with react renderer package should render 
   >
     Help
   </ForwardRef>
+  <button>
+    LogOut
+  </button>
 </header>
 `;

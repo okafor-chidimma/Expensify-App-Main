@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import ApiRoutes from './routers/ApiRoutes';
+import ApiRoutes, { history } from './routers/ApiRoutes';
 import store from './store/configureStore';
 import { startSetExpense } from './actions/expenses';
+import { login, logout } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/style.scss';
 import 'react-dates/lib/css/_datepicker.css';
-import './firebase/firebase';
+import { firebase } from './firebase/firebase';
 
 const template = (
   <Provider store={store}>
@@ -17,12 +18,47 @@ const template = (
 const appRoot = document.getElementById('app');
 ReactDOM.render(<p>Loading...</p>, appRoot);
 
-store
-  .dispatch(startSetExpense())
-  .then(() => {
+// there are two major ways to change the redux store,
+/*
+  by changing the redux store using npm package redux
+  by changing the redux store using npm react-redux
+
+  both methods are done using dispatch().i.e dispatching an action to redux store
+*/
+let hasRendered = false;
+const renderApp = (template, appRoot) => {
+  if (!hasRendered) {
+    hasRendered = true;
     ReactDOM.render(template, appRoot);
-  })
-  .catch(error => {
-    console.log(error, 'error loading expenses');
-    ReactDOM.render(<p>There was an error loading expenses</p>, appRoot);
-  });
+  }
+};
+
+/*
+  To track authentication
+
+  Tracks a user's status from unauthenticated to authenticated if logged in and vice versa if logged out   
+*/
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    console.log(`${user.uid} logged in`);
+    store.dispatch(login(user.uid));
+    store
+      .dispatch(startSetExpense())
+      .then(() => {
+        renderApp(template, appRoot);
+        if (history.location.pathname === '/') {
+          history.push('/dashboard');
+        }
+      })
+      .catch(error => {
+        console.log(error, 'error loading expenses');
+        const temp = <p>There was an error loading expenses</p>;
+        renderApp(temp, appRoot);
+      });
+  } else {
+    console.log('user logged out');
+    store.dispatch(logout());
+    history.push('/');
+    renderApp(template, appRoot);
+  }
+});

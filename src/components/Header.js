@@ -19,7 +19,7 @@ export const Header = ({ startLogout }) => (
       //   Help
       // </NavLink>
     }
-    <button onClick={startLogout}>LogOut</button>
+    <button onClick={startLogout}>Log out</button>
   </header>
 );
 

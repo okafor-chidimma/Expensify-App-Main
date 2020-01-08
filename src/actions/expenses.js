@@ -10,13 +10,15 @@ export const addExpense = expense => ({
 // the redux store executes this function internally and every other thing inside the function
 export const startAddExpense = (expense = {}) => {
   // this return function is internally ran by redux and it gets called with dispatch as an arg
-  return dispatch => {
+  return (dispatch, getState) => {
+    // getState() when called gets the current state of the redux store
+    const uid = getState().auth.uid;
     const { amount = 0, createdAt = 0, note = '', description = '' } = expense;
     const expenseObj = { amount, description, createdAt, note };
 
     // to return a promise so we can use jest to test to make sure it does what it is meant to do
     return database
-      .ref('expenses')
+      .ref(`users/${uid}/expenses`)
       .push(expenseObj)
       .then(ref => {
         // the first dispatch from the component just makes this function available to redux store
@@ -44,9 +46,10 @@ export const removeExpense = ({ id }) => {
 };
 
 export const startRemoveExpense = id => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref(`expenses/${id}`)
+      .ref(`users/${uid}/expenses/${id}`)
       .remove()
       .then(() => {
         console.log('data removed successfully');
@@ -69,9 +72,10 @@ export const editExpense = ({ id }, updatedExpense) => {
 };
 
 export const startEditExpense = (id, updatedExpense) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref(`expenses/${id}`)
+      .ref(`users/${uid}/expenses/${id}`)
       .update(updatedExpense)
       .then(() => {
         console.log('data updated successfully');
@@ -93,10 +97,11 @@ export const setExpense = expenses => ({
 
 export const startSetExpense = () => {
   // this return function is internally ran by redux and it gets called with dispatch as an arg
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     // to return a promise so we can use jest to test to make sure it does what it is meant to do
     return database
-      .ref('expenses')
+      .ref(`users/${uid}/expenses`)
       .once('value')
       .then(snapshot => {
         const expenses = [];

@@ -24,6 +24,7 @@ const mockStore = configureStore(middlewares);
 //Anytime i call mockstore function, it returns an instance of the configured mock store
 
 // using the done arg, when done is as an arg to a test suite, the test suite waits for the done() to be called before it can complete its running, if the done() is never called the test fails
+const uid = 'abc123';
 describe('the Expense Action Generators', () => {
   beforeEach(done => {
     const expenseData = {};
@@ -31,7 +32,7 @@ describe('the Expense Action Generators', () => {
       expenseData[id] = { description, note, createdAt, amount };
     });
     database
-      .ref('expenses')
+      .ref(`users/${uid}/expenses`)
       .set(expenseData)
       .then(() => {
         // the done is called after the promise resolves and if the promise fails the test fails
@@ -46,7 +47,7 @@ describe('the Expense Action Generators', () => {
     });
   });
   test('should remove expense from database and store', done => {
-    const initialState = {};
+    const initialState = { auth: { uid } };
     const store = mockStore(initialState);
     store
       .dispatch(startRemoveExpense(expenses[0].id))
@@ -57,7 +58,9 @@ describe('the Expense Action Generators', () => {
           type: 'REMOVE_EXPENSE',
           id: expenses[0].id
         });
-        return database.ref(`expenses/${expenses[0].id}`).once('value');
+        return database
+          .ref(`users/${uid}/expenses/${expenses[0].id}`)
+          .once('value');
       })
       .then(snapshot => {
         console.log(snapshot.val(), 'i am snap shot');
@@ -74,11 +77,11 @@ describe('the Expense Action Generators', () => {
       updatedExpense: { note: 'i am test note' }
     });
   });
-  test('should update expense in database and redux', (done) => {
+  test('should update expense in database and redux', done => {
     const updatedExpense = {
       note: 'I am updating you from test'
     };
-    const initialState = {};
+    const initialState = { auth: { uid } };
     const store = mockStore(initialState);
     store
       .dispatch(startEditExpense(expenses[0].id, updatedExpense))
@@ -90,7 +93,9 @@ describe('the Expense Action Generators', () => {
           id: expenses[0].id,
           updatedExpense
         });
-        return database.ref(`expenses/${expenses[0].id}`).once('value');
+        return database
+          .ref(`users/${uid}/expenses/${expenses[0].id}`)
+          .once('value');
       })
       .then(snapshot => {
         console.log(snapshot.val(), 'i am snap shot');
@@ -98,7 +103,7 @@ describe('the Expense Action Generators', () => {
         done();
       });
   });
-  
+
   test('should generate an add expense action', () => {
     const action = addExpense(expenses[0]);
     expect(action).toEqual({
@@ -110,7 +115,7 @@ describe('the Expense Action Generators', () => {
     // done is a method called when we want jest to wait before running a test, i.e we tell jest to wait for a while before finishing the test
 
     // declare an initial state value
-    const initialState = {};
+    const initialState = { auth: { uid } };
     // step 5 call an instance of mockStore to configure our store
     const store = mockStore(initialState);
 
@@ -142,7 +147,9 @@ describe('the Expense Action Generators', () => {
           }
         });
         // making a db call to ensure the data got saved as it is supposed to and it will return a promise, so i can do promise chaining
-        return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+        return database
+          .ref(`users/${uid}/expenses/${actions[0].expense.id}`)
+          .once('value');
       })
       .then(snapshot => {
         expect(snapshot.val()).toEqual(expenseData);
@@ -150,7 +157,7 @@ describe('the Expense Action Generators', () => {
       });
   });
   test('should add default expense to the database and store', done => {
-    const initialState = {};
+    const initialState = { auth: { uid } };
     const store = mockStore(initialState);
     const expenseDefault = {
       amount: 0,
@@ -170,7 +177,9 @@ describe('the Expense Action Generators', () => {
             ...expenseDefault
           }
         });
-        return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+        return database
+          .ref(`users/${uid}/expenses/${actions[0].expense.id}`)
+          .once('value');
       })
       .then(snapshot => {
         expect(snapshot.val()).toEqual(expenseDefault);
@@ -186,11 +195,11 @@ describe('the Expense Action Generators', () => {
     });
   });
   test('should fetch data from db and dispatch setExpenses', done => {
-    const initialState = {};
+    const initialState = { auth: { uid } };
     const store = mockStore(initialState);
     store.dispatch(startSetExpense()).then(() => {
       const actions = store.getActions();
-      console.log(actions, 'hi default actions');
+      // console.log(actions, 'hi default actions');
       expect(actions[0]).toEqual({
         type: 'SET_EXPENSE',
         expenses
@@ -198,5 +207,4 @@ describe('the Expense Action Generators', () => {
       done();
     });
   });
-  
 });

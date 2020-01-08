@@ -17,12 +17,6 @@ exports[`To test the Header component with enzyme package should render Header c
   >
     Create Expense
   </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    to="/help"
-  >
-    Help
-  </NavLink>
   <button
     onClick={[MockFunction]}
   >

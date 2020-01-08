@@ -17,12 +17,6 @@ exports[`To test the Header component with react renderer package should render 
   >
     Create Expense
   </ForwardRef>
-  <ForwardRef
-    activeClassName="is-active"
-    to="/help"
-  >
-    Help
-  </ForwardRef>
   <button>
     LogOut
   </button>

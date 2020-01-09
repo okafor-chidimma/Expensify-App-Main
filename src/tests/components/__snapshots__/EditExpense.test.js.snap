@@ -2,25 +2,41 @@
 
 exports[`should render the <EditExpensePage/> should render <EditExpensePage/> correctly with right props 1`] = `
 <div>
-  Editing the expense of 
-  1
-  <ExpenseForm
-    buttonState="edit"
-    expense={
-      Object {
-        "amount": 54500,
-        "createdAt": 0,
-        "description": "January rent",
-        "id": "1",
-        "note": "Last rent before moving",
-      }
-    }
-    onSubmit={[Function]}
-  />
-  <button
-    onClick={[Function]}
+  <div
+    className="page-header"
   >
-    Remove Item
-  </button>
+    <div
+      className="content-container"
+    >
+      <h1
+        className="page-header__title"
+      >
+        Edit Expense Page
+      </h1>
+    </div>
+  </div>
+  <div
+    className="content-container"
+  >
+    <ExpenseForm
+      buttonState="edit"
+      expense={
+        Object {
+          "amount": 54500,
+          "createdAt": 0,
+          "description": "January rent",
+          "id": "1",
+          "note": "Last rent before moving",
+        }
+      }
+      onSubmit={[Function]}
+    />
+    <button
+      className="button button--secondary"
+      onClick={[Function]}
+    >
+      Remove Expense
+    </button>
+  </div>
 </div>
 `;

@@ -1,11 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`To test the Login component with enzyme package should render Login correctly 1`] = `
-<div>
-  <button
-    onClick={[MockFunction]}
+<div
+  className="box-layout"
+>
+  <div
+    className="box-layout__box"
   >
-    Login Page
-  </button>
+    <h1
+      className="box-layout__title"
+    >
+      Expensify
+    </h1>
+    <p>
+      It is time to get your expenses under control
+    </p>
+    <button
+      className="button"
+      onClick={[MockFunction]}
+    >
+      Login Page
+    </button>
+  </div>
 </div>
 `;

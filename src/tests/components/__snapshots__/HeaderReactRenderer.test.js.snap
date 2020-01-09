@@ -1,24 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`To test the Header component with react renderer package should render Header correctly 1`] = `
-<header>
-  <h1>
-    Expensify
-  </h1>
-  <ForwardRef
-    activeClassName="is-active"
-    to="/dashboard"
+<header
+  className="header"
+>
+  <div
+    className="content-container"
   >
-    My Dashboard
-  </ForwardRef>
-  <ForwardRef
-    activeClassName="is-active"
-    to="/create"
-  >
-    Create Expense
-  </ForwardRef>
-  <button>
-    LogOut
-  </button>
+    <div
+      className="header__content"
+    >
+      <ForwardRef
+        className="header__title"
+        to="/dashboard"
+      >
+        <h1>
+          Expensify
+        </h1>
+      </ForwardRef>
+      <button
+        className="button button--link"
+      >
+        Log out
+      </button>
+    </div>
+  </div>
 </header>
 `;

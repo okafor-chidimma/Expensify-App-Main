@@ -9,6 +9,7 @@ import 'normalize.css/normalize.css';
 import './styles/style.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
+import LoadingPage from './components/LoadingPage';
 
 const template = (
   <Provider store={store}>
@@ -16,7 +17,7 @@ const template = (
   </Provider>
 );
 const appRoot = document.getElementById('app');
-ReactDOM.render(<p>Loading...</p>, appRoot);
+ReactDOM.render(<LoadingPage />, appRoot);
 
 // there are two major ways to change the redux store,
 /*

@@ -1,21 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Rendering <ExpenseListItem/> Render the <ExpenseListItem/> with expense as props 1`] = `
-<div>
-  <Link
-    to="/edit/1"
-  >
-    <h4>
+<Link
+  className="list-item"
+  to="/edit/1"
+>
+  <div>
+    <h3
+      className="list-item__title"
+    >
       January rent
-    </h4>
-  </Link>
-  <p>
-    Amount Spent: 
+    </h3>
+    <span
+      className="list-item__sub-title"
+    >
+      January 1st, 1970
+    </span>
+  </div>
+  <h3
+    className="list-item__data"
+  >
     #545.00
-  </p>
-  <p>
-    Created At: 
-    January 1st, 1970
-  </p>
-</div>
+  </h3>
+</Link>
 `;

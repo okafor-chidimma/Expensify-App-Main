@@ -4,22 +4,23 @@ import ExpenseListItem from './ExpenseListItem';
 import getVisibleExpense from '../selectors/expenses';
 
 export const ExpenseList = ({ expenses }) => (
-  <div>
-    <h1>Expense List</h1>
-    {
-      expenses.length === 0 ? (
-        <p>No expenses Yet</p>
+  <div className='content-container'>
+    <div className='list-header'>
+      <div className='show-for-mobile'>Expenses</div>
+      <div className='show-for-desktop'>Expenses</div>
+      <div className='show-for-desktop'>Amount</div>
+    </div>
+    <div className='list-body'>
+      {expenses.length === 0 ? (
+        <div className='list-item list-item--message'>
+          <span>No expenses</span>
+        </div>
       ) : (
-          expenses.map((expense) => {
-            return (
-              <ExpenseListItem
-                {...expense}
-                key={expense.id}
-              />
-            )
-          })
-        )
-    }
+        expenses.map(expense => {
+          return <ExpenseListItem {...expense} key={expense.id} />;
+        })
+      )}
+    </div>
     {
       // props.expenses.map(({ description, amount, createdAt, id }) => {
       //   return (
@@ -31,19 +32,17 @@ export const ExpenseList = ({ expenses }) => (
       //     />
       //   )
       // })
-
     }
   </div>
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     expenses: getVisibleExpense(state.expenses, state.filters)
-  }
+  };
 };
 
 export default connect(mapStateToProps)(ExpenseList);
-
 
 // it can re-written as
 

@@ -93,8 +93,14 @@ describe('Testing User Interaction', () => {
   it('should set new date on date change', () => {
     const now = moment();
     const wrapper = shallow(<ExpenseForm />);
+                    
+                            
+    //to test the method OnDateChange, since we are rendering the component and not using the new keyword to create instance, we can only access the OnDateChange Method from the prop 
+    //of SIngleDatePicker component.
+    //why? becasue when the component is rendered inside the expense form, the onDateChange is passed in as a prop value to it
     const DateChangeSpy = wrapper.find('withStyles(SingleDatePicker)').props()
       .onDateChange;
+    //returns the onDateChange method, which has to be called with a moment instance
     DateChangeSpy(now);
     expect(wrapper.state('createdAt')).toEqual(now);
     // wrapper.debug().find('SingleDatePicker').props();

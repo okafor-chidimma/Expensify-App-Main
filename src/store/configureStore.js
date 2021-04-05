@@ -4,7 +4,7 @@ import expenseReducer from '../reducers/expenses';
 import filterReducer from '../reducers/filters';
 import authReducer from '../reducers/auth';
 
-// thunk is a middleware that we use with redux in order to dispatch functions to the redux store
+// thunk is a middleware that we use with redux in order to dispatch functions instead of the normal objects to the redux store
 // to use this middleware and our redux developer tool we use line 10 and if it is just the dev tool we use 35(window.) and just the middleware we call the applyMiddleware() as shown on 35 without the composeEnhancers
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

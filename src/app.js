@@ -10,6 +10,7 @@ import './styles/style.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
+//ApiRoutes is a component that returns the routes
 
 const template = (
   <Provider store={store}>

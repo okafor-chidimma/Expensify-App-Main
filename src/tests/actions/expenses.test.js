@@ -29,6 +29,9 @@ describe('the Expense Action Generators', () => {
   beforeEach(done => {
     const expenseData = {};
     expenses.forEach(({ id, description, note, createdAt, amount }) => {
+      //expenseData.id ==> would have created an id property on expenseData object and assigned it the values on the right
+      //expenseDat[id] ==> adds the value of id for instance '1234' as a property name to expenseData object
+      //expenseData['1234'] = { description, note, createdAt, amount };
       expenseData[id] = { description, note, createdAt, amount };
     });
     database

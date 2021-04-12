@@ -98,6 +98,14 @@ describe('Testing User Interaction', () => {
     //to test the method OnDateChange, since we are rendering the component and not using the new keyword to create instance, we can only access the OnDateChange Method from the prop 
     //of SIngleDatePicker component.
     //why? becasue when the component is rendered inside the expense form, the onDateChange is passed in as a prop value to it
+                            
+    //the goal here is to test that the DateChange event call back fires,
+    //usually, assuming there was an event that when it happens, fires the call back, all we would do here, is simulate taht event like we had been doing
+    //but here the only way to fire that method is by retrieving the prop value and calling the method ourselves 
+    //so the line below actually finds the component SIngleDatePicker inside the rendered expenseForm Component
+    //const DateChangeSpy = wrapper.find('withStyles(SingleDatePicker)').props().onDateChange;                       
+    //gets the prop value of onDateChange prop and stores it in DateChangeSpy variable
+    //fires that value to achieve our goalby calling DateChangeSpy() with the expected parameters                       
     const DateChangeSpy = wrapper.find('withStyles(SingleDatePicker)').props()
       .onDateChange;
     //returns the onDateChange method, which has to be called with a moment instance

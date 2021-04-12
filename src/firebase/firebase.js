@@ -13,6 +13,9 @@ import * as firebase from 'firebase';
 // console.log(process.env, 'value');
 // console.log(typeof process.env.FIREBASE_MEASUREMENT_ID,'type of value');
 
+//this process.env variables are coming from the ones defined in webpack, not from dotenv.config()
+//dotenv only works with backend, so for us to use the variables on our frontend, we use webpack as the midle man
+//check out the webpack.config file
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,

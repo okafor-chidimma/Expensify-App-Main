@@ -13,6 +13,8 @@ describe('To test the Header component with enzyme package', () => {
     expect(wrapper).toMatchSnapshot();
   });
   test('should call logout on button click', () => {
+    //once we simulate the click event, the call back function is triggered
+    //the goal is to test that the startLogout call back method ran when the logout button was clicked
     wrapper.find('button').simulate('click');
     expect(startLogout).toHaveBeenCalled();
   });

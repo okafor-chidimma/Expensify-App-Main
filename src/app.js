@@ -39,6 +39,11 @@ const renderApp = (template, appRoot) => {
   To track authentication
 
   Tracks a user's status from unauthenticated to authenticated if logged in and vice versa if logged out   
+  how does it do that? by monitoring the authentication status of a user. this I have broken down in these steps
+  a. Remember we created a startLogin and startLogOut action methods that return a function that either logs a user in or out
+  b. Also recall that these returned functions are internallytriggered by redux, so when we dispatch the action methods from our components, the methods
+  run and returns a function which redux fires to change a user's auth status
+  c. this onAuthStateChanged event notices that the user's auth status has changed and fires its callback, so what is defined within the call back is fired
 */
 firebase.auth().onAuthStateChanged(user => {
   if (user) {

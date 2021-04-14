@@ -1,3 +1,4 @@
+// configureStore is a module that provides you with a fake representation of what your real redux store looks like after the redux store has passed through combine reducers
 // step1 import configureStore and all the redux middleware we are using if any lines 1 and 2
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';

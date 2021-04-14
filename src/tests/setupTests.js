@@ -9,10 +9,13 @@
 
 
 import DotEnv from 'dotenv';
-DotEnv.config({ path: '.env.test' });
-
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
+
+//this line reads all our variables in .env.test into process.env obejects
+DotEnv.config({ path: '.env.test' });
+
 
 Enzyme.configure({
   adapter: new Adapter()

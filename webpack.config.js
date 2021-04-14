@@ -6,7 +6,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
   browser does not have access to the process.env object which means that node environment variables don't get passed to the client side js automatically because it is not safe practice, so to make node environment variables available in webpack via the usage of dotenv, to be available to the client side i.e everything inside of src folder which gets bundled to bundle.js, we have to manually pass them via the DefinePlugins() in webpack
 */
+//recall that in the package.json file, we passed in the NODE_ENV flag to the test script,
+//this means that in webpack.config,if NODE_ENV is set, it takes that value or takes 'development' by default
+//and since Heroku sets NODE_ENV to production we have 
+//when we run the npm test script, NODE_ENV = 'test',
+//when it is undefined, NODE_ENV = 'development'
+//when in production in Heroku, NODE_ENV = 'production'
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '.env.development' });
 }

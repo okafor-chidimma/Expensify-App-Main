@@ -16,7 +16,8 @@ export const startAddExpense = (expense = {}) => {
     const { amount = 0, createdAt = 0, note = '', description = '' } = expense;
     const expenseObj = { amount, description, createdAt, note };
 
-    // to return a promise so we can use jest to test to make sure it does what it is meant to do
+    // to return a promise so we can continue the promise chain any place we call this function
+    //use jest to test to make sure it does what it is meant to do
     return database
       .ref(`users/${uid}/expenses`)
       .push(expenseObj)

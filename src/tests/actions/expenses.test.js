@@ -178,6 +178,8 @@ describe('the Expense Action Generators', () => {
           }
         });
         // making a db call to ensure the data got saved as it is supposed to and it will return a promise, so i can do promise chaining
+        
+        //reason for this return is explained in the next test suit for default values
         return database
           .ref(`users/${uid}/expenses/${actions[0].expense.id}`)
           .once('value');
@@ -208,10 +210,41 @@ describe('the Expense Action Generators', () => {
             ...expenseDefault
           }
         });
+      
+        //when we return a promise from a then(), it allows us to continue chaining the promise. for e.g
+        /*
+          THIS IS JUST AN EXAMPLE
+          promise
+            .then((data) => {
+            console.log('1', data);
+            //then 1
+            return 'some data';
+            })
+            .then((str) => {// this
+              //then 2
+              console.log('does this run?', str);
+            }).catch((error) => {
+              console.log('error: ', error);
+            });
+          
+          Notice that I have chained a second then() wich is called then 2 to the first then and if I like I can chain more. all the then() must run every time this file is ran and when it does
+          there are 3 scenarios here
+          CASE 1. when the function passed as a parameter to the first then() labelled as then 1 does not return anything
+                  a. in this case, then 2 still fires but the function parameter inside then 2 does not get called with any arguments since then 1 returned nothing
+            
+         CASE 2. when the function passed as a parameter to the first then() labelled as then 1 returns a string or any other data type
+                a. in this case, then 2 still fires but the function parameter inside then 2 gets called with one argument, which is the value returned from then 1
+                
+         CASE 3. when the function passed as a parameter to the first then() labelled as then 1 returns a promise
+            a. in this case, then 2 still fires but the function parameter inside then 2 gets called with one argument, which is the value from resolving the returned promise
+          
+          we are returning a promise from the function that gets passed into then()
+        */
         return database
           .ref(`users/${uid}/expenses/${actions[0].expense.id}`)
           .once('value');
       })
+    //this here is our then 2 and notice that the inside function gets called with the resolved value from the promise returned in the first then()
       .then(snapshot => {
         expect(snapshot.val()).toEqual(expenseDefault);
         done();

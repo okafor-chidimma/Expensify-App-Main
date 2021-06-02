@@ -25,6 +25,8 @@ module.exports = env => {
     mode: env,
     entry: ['babel-polyfill','./src/app.js'],
     output: {
+      //this is the absolute filepath(folder) where webpack saves our generated files in
+      //so webpack saves bundle.js in /Users/Chidimma/Desktop/Expensify-Ap/public/dist/ folder path
       path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js'
     },
@@ -98,8 +100,20 @@ module.exports = env => {
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
+      //you are telling dev-server to serve the public folder in the localhost:8080 url, so by defualt it serves the index.html in the root directory
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
+      /* this is the path from where webpack-dev-server or any server serves the webpack generated files from
+         i.e it tells webpack-dev-server to serve those files generated in the output.path property from this location in our server, remember our server is localhost:8080 (which is public folder)
+         Whenever request for file localhost:8080/dist/bundle.js comes as we specified in our index.html in the public folder, 
+         /Users/Chidimma/Desktop/Expensify-Ap/public/dist/bundle.js file will be served
+         in other words, publicPath value is equivalent to the output.path value even if they are not the same name e.g if publicPath:"/assets/", it will be equivalent to output.path value /Users/Chidimma/Desktop/Expensify-Ap/public/dist/
+        
+        remember that it is publicPath value that you will use in index.html or any file in your public folder where you need to use any js or css or img files
+        for this our case: index.html in public folder
+            <script src="/dist/bundle.js"></script>
+        if our publicPath was ==> /assets/, then index.html will be <script src="/assets/bundle.js"></script>
+    */
       publicPath: '/dist/'
     },
     performance: {

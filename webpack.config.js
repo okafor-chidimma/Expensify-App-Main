@@ -27,6 +27,7 @@ module.exports = env => {
     output: {
       //this is the absolute filepath(folder) where webpack saves our generated files in
       //so webpack saves bundle.js in /Users/Chidimma/Desktop/Expensify-Ap/public/dist/ folder path
+      //this refers to where in our laptop, webpack saves the generated file in
       path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js'
     },
@@ -104,7 +105,7 @@ module.exports = env => {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       /* this is the path from where webpack-dev-server or any server serves the webpack generated files from
-         i.e it tells webpack-dev-server to serve those files generated in the output.path property from this location in our server, remember our server is localhost:8080 (which is public folder)
+         i.e webpack tells webpack-dev-server to serve those files generated in the output.path property from this location in our server, remember our server is localhost:8080 (which is public folder)
          Whenever request for file localhost:8080/dist/bundle.js comes as we specified in our index.html in the public folder, 
          /Users/Chidimma/Desktop/Expensify-Ap/public/dist/bundle.js file will be served
          in other words, publicPath value is equivalent to the output.path value even if they are not the same name e.g if publicPath:"/assets/", it will be equivalent to output.path value /Users/Chidimma/Desktop/Expensify-Ap/public/dist/

@@ -6,8 +6,8 @@ export const addExpense = expense => ({
 });
 
 // when the function is called, it returns a function which only works with the help of thunk middleware.
-// Then the component dispatches this function to the redux store
-// the redux store executes this function internally and every other thing inside the function
+// Then the component dispatches(startAddExpense) function to the redux store
+// the redux store executes the returned action function internally and every other thing inside the function
 export const startAddExpense = (expense = {}) => {
   // this return function is internally ran by redux and it gets called with dispatch as an arg
   return (dispatch, getState) => {
